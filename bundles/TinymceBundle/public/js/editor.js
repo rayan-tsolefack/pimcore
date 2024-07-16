@@ -56,9 +56,10 @@ pimcore.bundle.tinymce.editor = Class.create({
             language = {};
         }
 
+            // changes
         const toolbar1 = 'undo redo | blocks | ' +
             'bold italic | alignleft aligncenter ' +
-            'alignright alignjustify | link';
+            'alignright alignjustify | link | media | image';
 
         const toolbar2 = 'table | bullist numlist outdent indent | removeformat | code | help';
         let toolbar;
@@ -88,20 +89,32 @@ pimcore.bundle.tinymce.editor = Class.create({
         const maxChars = this.maxChars;
 
         tinymce.init(Object.assign({
+            // changes
             selector: `#${this.textareaId}`,
             height: 500,
             menubar: false,
             plugins: [
                 'autolink', 'lists', 'link', 'image', 'code',
-                'media', 'table', 'help', 'wordcount'
+                'insertdatetime', 'media', 'table', 'help', 'wordcount'
             ],
             content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
             inline: true,
             base_url: '/bundles/pimcoretinymce/build/tinymce',
             suffix: '.min',
             convert_urls: false,
-            convert_unsafe_embeds: true,
-            extended_valid_elements: 'a[class|name|href|target|title|pimcore_id|pimcore_type],img[class|style|longdesc|usemap|src|border|alt=|title|hspace|vspace|width|height|align|pimcore_id|pimcore_type]',
+            convert_unsafe_embeds: true, 
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+            inline: true,
+            base_url: '/bundles/pimcoretinymce/build/tinymce',
+            suffix: '.min',
+            convert_urls: false,
+            extended_valid_elements: 'a[class|name|href|target|title|pimcore_id|pimcore_type],img[class|style|longdesc|usemap|src|border|alt=|title|hspace|vspace|width|height|align|pimcore_id|pimcore_type],i[class|title],*[*]',
+            valid_elements: '*[*]',
+            content_css: [
+                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css',
+                'https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css'
+            ],
+            entity_encoding: 'raw',
             init_instance_callback: function (editor) {
                 editor.on('input', function (eChange) {
                     tinymce.activeEditor.getBody().style.border = '';
